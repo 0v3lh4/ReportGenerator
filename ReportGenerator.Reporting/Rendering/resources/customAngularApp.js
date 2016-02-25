@@ -34,7 +34,9 @@ function SummaryViewCtrl($scope) {
 
 /* Angular controller for class reports */
 function DetailViewCtrl($scope) {
-    var self = this;
+    var self = this,
+        rows,
+        rowIndex = 0;
 
     $scope.pinned = false;
     $scope.selectedTestMethod = "AllTestMethods";
@@ -67,6 +69,23 @@ function DetailViewCtrl($scope) {
             }
         }
     };
+
+    $scope.coverageKeyboard = function () {
+       key('ctrl+n', function () {
+          if (rows.length > 0) {
+             $(window).scrollTop($(rows[rowIndex]).position().top);
+             (((rows.length - 1) == rowIndex) ? rowIndex = 0 : rowIndex++);
+          }
+          return false;
+       });
+    };
+
+    self.initialize = function () {
+       rows = $('.branch0, .branch50').closest('tr');
+       $scope.coverageKeyboard();
+    };
+
+    self.initialize();
 }
 
 /* Angular application */

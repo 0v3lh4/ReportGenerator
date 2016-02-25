@@ -855,6 +855,12 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
                 stream.CopyTo(ms);
             }
 
+            using (Stream stream = typeof(HtmlRenderer).Assembly.GetManifestResourceStream(
+                "Palmmedia.ReportGenerator.Reporting.Rendering.resources.keymaster.js"))
+            {
+                stream.CopyTo(ms);
+            }
+
             byte[] lineBreak = Encoding.UTF8.GetBytes(Environment.NewLine);
             ms.Write(lineBreak, 0, lineBreak.Length);
 
